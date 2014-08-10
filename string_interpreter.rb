@@ -9,16 +9,18 @@ class StringInterpreter
 	# check if the word is a palindrome
 	def palindrome?
 		if @word.nil?
-			puts "word is nil"
+			return false
+		elsif @word.is_a? Numeric
+			return false
 		elsif @word.empty?
-			puts "word is empty"
+			return false
 		else
 			if @word.respond_to? "downcase"
 				@word = @word.downcase
 				if @word.respond_to? "scan"
 					@word = @word.scan /\w/
 					if @word.respond_to? "reverse"
-						puts @word == @word.reverse
+						return @word == @word.reverse
 					end
 				end
 			end
@@ -43,7 +45,7 @@ class StringInterpreter
 	#def 
 end
 
-if __FILE__ == $0
+/if __FILE__ == $0
 	wordAnalyzer = WordAnalyzer.new "goodbye"
 	wordAnalyzer.palindrome?
 
@@ -61,5 +63,5 @@ if __FILE__ == $0
   
 	# Change to nil
 	wordAnalyzer.word = nil
-	wordAnalyzer.palindrome?
-end
+	wordAnalyzer.palindrome
+end/
