@@ -1,67 +1,30 @@
 class StringInterpreter
-	attr_accessor :word
+	attr_accessor :string
 
 	# Initialize the variable if one is not given upon object creation
-	def initialize(word = "hello")
-		@word = word
+	def initialize(string = "hello")
+		@string = string
 	end
 
-	# check if the word is a palindrome
-	def palindrome?
-		if @word.nil?
+	# Recursive check if the string is a palindrome
+	def palindrome? (string = @string)
+		if string.nil?
 			return false
-		elsif @word.is_a? Numeric
+		elsif string.is_a? Numeric
 			return false
-		elsif @word.empty?
-			return false
+		elsif string.length == 0 || string.length == 1
+			return true
 		else
-			if @word.respond_to? "downcase"
-				@word = @word.downcase
-				if @word.respond_to? "scan"
-					@word = @word.scan /\w/
-					if @word.respond_to? "reverse"
-						return @word == @word.reverse
-					end
-				end
+			if string.respond_to?("downcase") && string.respond_to?("scan")
+				string = string.downcase
+				string = string.scan /\w/
 			end
 			
+			if string[0] == string[string.length - 1]
+				palindrome?(string[1, string.length - 2])
+			else
+				return false
+			end
 		end
 	end
-	# Recursive alternative
-	#def palindrome?
-	#	if @word.nil?
-	#		false
-	#	elsif @word.length == 1 || @word.length == 0
-	#		true
-	#	else
-	#		if @word[0] == @word[-1]
-	#			palindrome?(@word[1..-2])
-	#		else
-	#			false
-	#		end
-	#	end
-	#end
-	
-	#def 
 end
-
-/if __FILE__ == $0
-	wordAnalyzer = WordAnalyzer.new "goodbye"
-	wordAnalyzer.palindrome?
-
-	# Change word to be a palindrome
-	wordAnalyzer.word = "Racecar"
-	wordAnalyzer.palindrome?
-
-	# Change to a palindromic sentence
-	wordAnalyzer.word = "Never a foot too far, even."
-	wordAnalyzer.palindrome?
-	
-	# Change the word to an empty string
-	wordAnalyzer.word = ""
-	wordAnalyzer.palindrome?
-  
-	# Change to nil
-	wordAnalyzer.word = nil
-	wordAnalyzer.palindrome
-end/
