@@ -7,7 +7,7 @@ class StringInterpreter
 	end
 
 	# Recursive check if the string is a palindrome
-	def palindrome? (string = @string)
+	def palindrome?(string = @string)
 		if string.nil?
 			return false
 		elsif string.is_a? Numeric
@@ -27,4 +27,6 @@ class StringInterpreter
 			end
 		end
 	end
+	
+	# Other string interpreting methods go here
 end
